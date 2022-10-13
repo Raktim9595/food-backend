@@ -11,7 +11,8 @@ app.use(express.json());
 
 async function connectDB() {
   try {
-    await mongoose.connect("mongodb+srv://Raktim:Raktim2057@fooddelivery.edp17hl.mongodb.net/?retryWrites=true&w=majority");
+    await mongoose.connect(process.env.MONGO_DB);
+    // await mongoose.connect("mongodb+srv://Raktim:Raktim2057@fooddelivery.edp17hl.mongodb.net/?retryWrites=true&w=majority");
     console.log("connected to the database");
   } catch (e) {
     console.log(e.message);
