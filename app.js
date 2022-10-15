@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const propertyRoute = require("./routes/productRoute");
 const authRoute = require("./routes/authRoute");
-const cartRoute = require("./routes/cartRoute");
+const orderRoute = require("./routes/orderRoute");
 
 const app = express();
 require("dotenv").config();
@@ -23,7 +23,7 @@ async function connectDB() {
 connectDB();
 app.use("/api/v1/", propertyRoute);
 app.use("/api/v1/", authRoute);
-app.use("/api/v1/", cartRoute);
+app.use("/api/v1/", orderRoute);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("server is running on port " + 8000);

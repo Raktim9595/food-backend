@@ -23,12 +23,13 @@ const registerUser = async (req, res) => {
 			new: true,
 		});
 		newUser.id = foundCounter.seq;
-		await newUser.save();
+		const user = await newUser.save();
 		const accessToken = jwt.sign({},
 			process.env.PASSWORD_SECRET, {
 				expiresIn: "3d"
 			});
-		return res.status(200).json({ token: accessToken });
+		const { password, ... others } = user._doc;
+		return res.status(200).json({ others , token: accessToken });
 	} catch (e) {
 		console.log(e.message);
 	}
@@ -57,7 +58,9 @@ const logInUser = async (req, res) => {
 	}
 }
 
-const getOneUser = async (req, res) => {	try {
+const getOneUser = async (req, res) => {	
+	try {
+		console.log("get one user route hit");
 		const oneUser = await User.findById(req.user.id);
 		if(!oneUser) {
 			return res.status(401).json({ error: "User not found" });
